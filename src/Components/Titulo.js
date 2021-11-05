@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class Titulo extends Component {
     render() {
         return (
-            <h1>Lista de Tareas</h1>
+            <h1 className="text-center my-5 display-3">Lista de Tareas</h1>
         );
     }
 }
