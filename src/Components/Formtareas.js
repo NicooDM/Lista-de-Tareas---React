@@ -18,12 +18,18 @@ const Formtareas = () => {
     
 
  // }*/
+
  const handleSubmit=(e)=>{
    e.preventDefault();
    //guardar una tarea en el arreglo de tareas
    setTareas([...tareas,tareaIndividual])
    //limpiar el imput
    setTareaIndiviual('')
+
+ }
+ const borrarTareas=(nombre)=>{
+   let arregloModificado= tareas.filter((item)=> item !=nombre)
+   setTareas(arregloModificado)
 
  }
 
@@ -38,7 +44,7 @@ const Formtareas = () => {
         </Form.Group>
       </Form>
       <section className="container">
-          <ListaTareas tareas={tareas}/>
+          <ListaTareas tareas={tareas} borrarTareas={borrarTareas}/>
       </section>
     </>
   );
