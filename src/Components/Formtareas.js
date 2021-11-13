@@ -1,14 +1,15 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import { Form, Button } from "react-bootstrap";
 import ListaTareas from "./ListaTareas";
 
 const Formtareas = () => {
+  let tareasLocalStorage = JSON.parse(localStorage.getItem('ListaTareas')) || [] //getItem traer los datos del localstorage y entreparentesis la key creada
   //crear los state 
   //siempre que tengamos form por cada input se crea un state
   //*recomendacion de react , poner la palabra set y el nombre (setTareaIndividual)
 
   const [tareaIndividual,setTareaIndiviual] = useState('');
-  const [tareas,setTareas]=useState([]);
+  const [tareas,setTareas]=useState(tareasLocalStorage);//usestate es al momento que se inicializo el arreglo tareas esta guardado como vacio
 
   /*const altaTarea=(e)=>{
     //para acceder al input(seria e.target.value)
@@ -18,6 +19,14 @@ const Formtareas = () => {
     
 
  // }*/
+ //usar el ciclo de vida de un componente
+ useEffect(
+   //esta logica se ejecuta en montaje y actualizacion (de este componente)
+   ()=>{
+     console.log('desde useEffect') //tareas es el state donde se da de alta las tareas, y para guardar usamos localstorage
+     localStorage.setItem('ListaTareas',JSON.stringify(tareas))
+  },[tareas] //con la ,[](es para ejecutar el useeffect solo en fase de montaje), para que solo se ejecute en el state que indicamos se pone el nombre de dicho state en los corchetes
+   )
 
  const handleSubmit=(e)=>{
    e.preventDefault();
@@ -28,7 +37,7 @@ const Formtareas = () => {
 
  }
  const borrarTareas=(nombre)=>{
-   let arregloModificado= tareas.filter((item)=> item !=nombre)
+   let arregloModificado= tareas.filter((item)=> item !==nombre)
    setTareas(arregloModificado)
 
  }
